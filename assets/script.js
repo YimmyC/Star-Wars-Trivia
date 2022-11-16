@@ -13,6 +13,7 @@ function startQuiz() {
   alert("I started the game");
   startTimer();
   createButtons(0);
+
   // Bring up question 1
 }
 // timer function
@@ -20,9 +21,11 @@ function startTimer() {
   let timer = 5;
 
   window.setInterval(function () {
-    if (timer > 0) timer--;
-    else if (timer === 0) {
-      alert("Sorry!");
+    if (timer > 0) {
+      timer--;
+    } else if (timer === 0) {
+      window.location.reload();
+      // alert("hahaha");
     }
     document.getElementById("timer").innerHTML = "TIME REMAINING: " + timer + " seconds";
   }, 1000);
