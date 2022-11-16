@@ -41,8 +41,12 @@ function startQuiz() {
 
 startQuizBtn.addEventListener("click", startQuiz);
 
-questions.addEventListener("click", function () {
-  if (choices === answer) {
+questionDiv.addEventListener("click", function (event) {
+  console.log(event);
+  let choice = event.target.innerHTML;
+  let answer = event.target.dataset.answer;
+
+  if (choice === answer) {
     alert("Correct!");
     // If answer is correct, do something
     // show next question
