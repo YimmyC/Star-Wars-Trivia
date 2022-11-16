@@ -3,40 +3,44 @@ let startQuizBtn = document.querySelector("#startQuiz");
 let questionDiv = document.querySelector("#questions");
 let questions = [
   { title: "This is the first question?", choices: ["one", "two", "three", "four"], answer: "two" },
-  { title: "This is the second question?", choices: ["one", "two", "three", "four"], answer: "three" },
+  { title: "This is the second question?", choices: ["uno", "dos", "tres", "quatro"], answer: "tres" },
 ];
 
 // Functions
 function startQuiz() {
   alert("I started the game");
+  createButtons(0);
   // Bring up question 1
-  let title = document.createElement("h2");
-  title.textContent = questions[0].title;
-  questionDiv.appendChild(title);
 
-  // add four answer options
-  let btnOne = document.createElement("button");
-  btnOne.textContent = questions[0].choices[0];
-  btnOne.dataset.answer = questions[0].answer;
-  questionDiv.appendChild(btnOne);
-
-  let btnTwo = document.createElement("button");
-  btnTwo.textContent = questions[0].choices[1];
-  btnTwo.dataset.answer = questions[0].answer;
-  questionDiv.appendChild(btnTwo);
-
-  let btnThree = document.createElement("button");
-  btnThree.textContent = questions[0].choices[2];
-  btnThree.dataset.answer = questions[0].answer;
-  questionDiv.appendChild(btnThree);
-
-  let btnFour = document.createElement("button");
-  btnFour.textContent = questions[0].choices[3];
-  btnFour.dataset.answer = questions[0].answer;
-  questionDiv.appendChild(btnFour);
   // Make clickable
 }
 
+function createButtons(index) {
+  let title = document.createElement("h2");
+  title.textContent = questions[index].title;
+  questionDiv.appendChild(title);
+  // cycle through questions
+  // add four answer options
+  let btnOne = document.createElement("button");
+  btnOne.textContent = questions[index].choices[0];
+  btnOne.dataset.answer = questions[index].answer;
+  questionDiv.appendChild(btnOne);
+
+  let btnTwo = document.createElement("button");
+  btnTwo.textContent = questions[index].choices[1];
+  btnTwo.dataset.answer = questions[index].answer;
+  questionDiv.appendChild(btnTwo);
+
+  let btnThree = document.createElement("button");
+  btnThree.textContent = questions[index].choices[2];
+  btnThree.dataset.answer = questions[index].answer;
+  questionDiv.appendChild(btnThree);
+
+  let btnFour = document.createElement("button");
+  btnFour.textContent = questions[index].choices[3];
+  btnFour.dataset.answer = questions[index].answer;
+  questionDiv.appendChild(btnFour);
+}
 // Function Calls
 
 startQuizBtn.addEventListener("click", startQuiz);
