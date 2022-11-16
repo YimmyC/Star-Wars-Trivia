@@ -4,15 +4,28 @@ let questionDiv = document.querySelector("#questions");
 let questions = [
   { title: "This is the first question?", choices: ["one", "two", "three", "four"], answer: "two" },
   { title: "This is the second question?", choices: ["uno", "dos", "tres", "quatro"], answer: "tres" },
+  { title: "This is the third question?", choices: ["uno", "dos", "tres", "quatro"], answer: "tres" },
 ];
 
+let questionsIndex = 1;
 // Functions
 function startQuiz() {
   alert("I started the game");
+  startTimer();
   createButtons(0);
   // Bring up question 1
+}
+// timer function
+function startTimer() {
+  let timer = 5;
 
-  // Make clickable
+  window.setInterval(function () {
+    if (timer > 0) timer--;
+    else if (timer === 0) {
+      alert("Sorry!");
+    }
+    document.getElementById("timer").innerHTML = "TIME REMAINING: " + timer + " seconds";
+  }, 1000);
 }
 
 function createButtons(index) {
@@ -52,6 +65,9 @@ questionDiv.addEventListener("click", function (event) {
 
   if (choice === answer) {
     alert("Correct!");
+    createButtons(questionsIndex);
+    // if (questionsIndex)
+    questionsIndex++;
     // If answer is correct, do something
     // show next question
   }
