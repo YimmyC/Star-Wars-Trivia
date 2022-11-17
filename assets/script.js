@@ -1,11 +1,15 @@
 // Global Variables
 let startQuizBtn = document.querySelector("#startQuiz");
 let questionDiv = document.querySelector("#questions");
+let introP = document.querySelector("#introP");
+let score = localStorage.getItem("score");
 let questions = [
   { title: "This is the first question?", choices: ["one", "two", "three", "four"], answer: "two" },
   { title: "This is the second question?", choices: ["uno", "dos", "tres", "quatro"], answer: "tres" },
   { title: "This is the third question?", choices: ["uno", "dos", "tres", "quatro"], answer: "tres" },
+  { title: "GAME OVER", choices: [], answer: "" },
 ];
+
 let timeEl = document.querySelector(".time");
 let secondsLeft = 60;
 
@@ -24,9 +28,9 @@ function setTime() {
     secondsLeft--;
     timeEl.textContent = "TIME REMAINING: " + secondsLeft + " SECONDS";
 
-    if (secondsLeft === 0) {
+    if (secondsLeft < 1 || questionsIndex === questions.length) {
       clearInterval(timerInterval);
-      alert("time is up!");
+      alert("Game Over");
       console.log(secondsLeft);
       //endgame function goes here
     }
@@ -37,6 +41,8 @@ function createButtons(index) {
   let title = document.createElement("h2");
   title.textContent = questions[index].title;
   questionDiv.appendChild(title);
+  introP.remove();
+  startQuizBtn.remove();
   // cycle through questions
   // add four answer options
   let btnOne = document.createElement("button");
@@ -68,16 +74,17 @@ questionDiv.addEventListener("click", function (event) {
   let choice = event.target.innerHTML;
   let answer = event.target.dataset.answer;
 
-  if (choice === answer) {
+  if (questionsIndex === questions.length) {
+    alert("Game Over");
+    JSON.parse(localStorage.setItem("score", secondsLeft));
+    console.log(score);
+  } else if (choice === answer) {
     alert("Correct!");
     createButtons(questionsIndex);
-    // if (questionsIndex)
     questionsIndex++;
     // If answer is correct, do something
     // show next question
   } else if (choice !== answer) {
-    console.log(choice);
     secondsLeft -= 10;
-    console.log(secondsLeft);
   }
 });
