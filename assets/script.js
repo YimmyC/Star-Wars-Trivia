@@ -7,7 +7,7 @@ let questions = [
   { title: "This is the third question?", choices: ["uno", "dos", "tres", "quatro"], answer: "tres" },
 ];
 let timeEl = document.querySelector(".time");
-let secondsLeft = 5;
+let secondsLeft = 60;
 
 let questionsIndex = 1;
 // Functions
@@ -75,5 +75,9 @@ questionDiv.addEventListener("click", function (event) {
     questionsIndex++;
     // If answer is correct, do something
     // show next question
+  } else if (choice !== answer) {
+    console.log(choice);
+    secondsLeft -= 10;
+    console.log(secondsLeft);
   }
 });
