@@ -1,8 +1,10 @@
 // Global Variables
 let startQuizBtn = document.querySelector("#startQuiz");
 let questionDiv = document.querySelector("#questions");
+let scoreDiv = document.querySelector("#score");
 let introP = document.querySelector("#introP");
-let score = localStorage.getItem("score");
+let score = JSON.parse(localStorage.getItem("score"));
+
 let questions = [
   { title: "This is the first question?", choices: ["one", "two", "three", "four"], answer: "two" },
   { title: "This is the second question?", choices: ["uno", "dos", "tres", "quatro"], answer: "tres" },
@@ -65,6 +67,11 @@ function createButtons(index) {
   btnFour.dataset.answer = questions[index].answer;
   questionDiv.appendChild(btnFour);
 }
+function endGame() {
+  let scoreBoard = document.createElement("h2");
+  scoreBoard.textContent = score;
+  scoreDiv.appendChild(scoreBoard);
+}
 // Function Calls
 
 startQuizBtn.addEventListener("click", startQuiz);
@@ -76,8 +83,9 @@ questionDiv.addEventListener("click", function (event) {
 
   if (questionsIndex === questions.length) {
     alert("Game Over");
-    JSON.parse(localStorage.setItem("score", secondsLeft));
+    localStorage.setItem("score", JSON.stringify(secondsLeft));
     console.log(score);
+    endGame();
   } else if (choice === answer) {
     alert("Correct!");
     createButtons(questionsIndex);
