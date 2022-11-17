@@ -3,7 +3,7 @@ let startQuizBtn = document.querySelector("#startQuiz");
 let questionDiv = document.querySelector("#questions");
 let scoreDiv = document.querySelector("#score");
 let introP = document.querySelector("#introP");
-let score = JSON.parse(localStorage.getItem("score"));
+let score = localStorage.getItem("score");
 
 let questions = [
   { title: "This is the first question?", choices: ["one", "two", "three", "four"], answer: "two" },
@@ -32,8 +32,7 @@ function setTime() {
 
     if (secondsLeft < 1 || questionsIndex === questions.length) {
       clearInterval(timerInterval);
-      alert("Game Over");
-      console.log(secondsLeft);
+      endGame();
       //endgame function goes here
     }
   }, 1000);
@@ -68,9 +67,10 @@ function createButtons(index) {
   questionDiv.appendChild(btnFour);
 }
 function endGame() {
-  let scoreBoard = document.createElement("h2");
-  scoreBoard.textContent = score;
-  scoreDiv.appendChild(scoreBoard);
+  let score = secondsLeft;
+  localStorage.setItem("score", secondsLeft);
+  alert("Game Over");
+  console.log(score);
 }
 // Function Calls
 
@@ -82,9 +82,6 @@ questionDiv.addEventListener("click", function (event) {
   let answer = event.target.dataset.answer;
 
   if (questionsIndex === questions.length) {
-    alert("Game Over");
-    localStorage.setItem("score", JSON.stringify(secondsLeft));
-    console.log(score);
     endGame();
   } else if (choice === answer) {
     alert("Correct!");
