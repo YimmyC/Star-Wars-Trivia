@@ -6,28 +6,30 @@ let questions = [
   { title: "This is the second question?", choices: ["uno", "dos", "tres", "quatro"], answer: "tres" },
   { title: "This is the third question?", choices: ["uno", "dos", "tres", "quatro"], answer: "tres" },
 ];
+let timeEl = document.querySelector(".time");
+let secondsLeft = 5;
 
 let questionsIndex = 1;
 // Functions
 function startQuiz() {
   alert("I started the game");
-  startTimer();
+  setTime();
   createButtons(0);
 
   // Bring up question 1
 }
 // timer function
-function startTimer() {
-  let timer = 5;
+function setTime() {
+  let timerInterval = setInterval(function () {
+    secondsLeft--;
+    timeEl.textContent = "TIME REMAINING: " + secondsLeft + " SECONDS";
 
-  window.setInterval(function () {
-    if (timer > 0) {
-      timer--;
-    } else if (timer === 0) {
-      window.location.reload();
-      // alert("hahaha");
+    if (secondsLeft === 0) {
+      clearInterval(timerInterval);
+      alert("time is up!");
+      console.log(secondsLeft);
+      //endgame function goes here
     }
-    document.getElementById("timer").innerHTML = "TIME REMAINING: " + timer + " seconds";
   }, 1000);
 }
 
