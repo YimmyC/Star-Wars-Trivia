@@ -2,8 +2,10 @@
 let startQuizBtn = document.querySelector("#startQuiz");
 let questionDiv = document.querySelector("#questions");
 let scoreDiv = document.querySelector("#score");
+let formDiv = $("#form");
 let introP = document.querySelector("#introP");
-let score = localStorage.getItem("score");
+let score = JSON.parse(localStorage.getItem("score")) || [];
+let addScoreBtn = $("#addScore");
 
 let questions = [
   { title: "This is the first question?", choices: ["one", "two", "three", "four"], answer: "two" },
@@ -67,10 +69,19 @@ function createButtons(index) {
   questionDiv.appendChild(btnFour);
 }
 function endGame() {
-  let score = secondsLeft;
-  localStorage.setItem("score", secondsLeft);
+  // let score = secondsLeft;
+  // localStorage.setItem("score", JSON.stringify(secondsLeft));
   alert("Game Over");
   console.log(score);
+  formDiv.removeClass("hidden");
+}
+function updateScoreList(event) {
+  event.preventDefault();
+  let score = {
+    Initials: $("#initials").val(),
+    score: secondsLeft.val(),
+  };
+  localStorage.setItem("score", JSON.stringify(score));
 }
 // Function Calls
 
@@ -93,3 +104,5 @@ questionDiv.addEventListener("click", function (event) {
     secondsLeft -= 10;
   }
 });
+
+addScoreBtn.on("submit", updateScoreList);
