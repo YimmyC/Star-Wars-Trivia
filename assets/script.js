@@ -5,7 +5,8 @@ let scoreDiv = document.querySelector("#score");
 let formDiv = $("#form");
 let introP = document.querySelector("#introP");
 let score = JSON.parse(localStorage.getItem("score")) || [];
-let addScoreBtn = $("#addScore");
+let scoreList = JSON.parse(localStorage.getItem("scoreList")) || [];
+let addScoreBtn = document.querySelector("#addScore");
 
 let questions = [
   { title: "This is the first question?", choices: ["one", "two", "three", "four"], answer: "two" },
@@ -69,19 +70,21 @@ function createButtons(index) {
   questionDiv.appendChild(btnFour);
 }
 function endGame() {
-  // let score = secondsLeft;
-  // localStorage.setItem("score", JSON.stringify(secondsLeft));
+  let score = secondsLeft;
+  localStorage.setItem("score", JSON.stringify(secondsLeft));
   alert("Game Over");
   console.log(score);
   formDiv.removeClass("hidden");
+  scoreDiv.textContent = "Score:" + score;
 }
 function updateScoreList(event) {
-  event.preventDefault();
-  let score = {
+  console.log("something happened");
+  let playerScore = {
     Initials: $("#initials").val(),
-    score: secondsLeft.val(),
+    score: secondsLeft,
   };
-  localStorage.setItem("score", JSON.stringify(score));
+  scoreList.push(playerScore);
+  localStorage.setItem("scoreList", JSON.stringify(scoreList));
 }
 // Function Calls
 
@@ -105,4 +108,4 @@ questionDiv.addEventListener("click", function (event) {
   }
 });
 
-addScoreBtn.on("submit", updateScoreList);
+addScoreBtn.addEventListener("click", updateScoreList);
