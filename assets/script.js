@@ -20,6 +20,16 @@ let secondsLeft = 60;
 
 let questionsIndex = 1;
 // Functions
+// function init() {
+// scoreList.forEach(playerScore, (index) => {
+//     let rowEl = $("<tr>");
+//     let nameEl = $("<td>").text(playerScore.initials);
+//     let scoreEl = $("<td>").text(playerScore.score);
+//     rowEl.append(rowEl, nameEl, scoreEl);
+//     highscoreTable.append(rowEl);
+//   });
+// }
+
 function startQuiz() {
   alert("I started the game");
   setTime();
@@ -80,13 +90,16 @@ function endGame() {
 function updateScoreList(event) {
   console.log("something happened");
   let playerScore = {
-    Initials: $("#initials").val(),
+    initials: $("#initials").val(),
     score: secondsLeft,
   };
   scoreList.push(playerScore);
   localStorage.setItem("scoreList", JSON.stringify(scoreList));
 }
+
 // Function Calls
+
+// init();
 
 startQuizBtn.addEventListener("click", startQuiz);
 
