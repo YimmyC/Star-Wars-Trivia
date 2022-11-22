@@ -7,6 +7,7 @@ let introP = document.querySelector("#introP");
 let score = JSON.parse(localStorage.getItem("score")) || [];
 let scoreList = JSON.parse(localStorage.getItem("scoreList")) || [];
 let addScoreBtn = document.querySelector("#addScore");
+let highscoreDiv = document.querySelector("#highscoreTable");
 
 let questions = [
   { title: "This is the first question?", choices: ["one", "two", "three", "four"], answer: "two" },
@@ -20,15 +21,16 @@ let secondsLeft = 60;
 
 let questionsIndex = 1;
 // Functions
-// function init() {
-// scoreList.forEach(playerScore, (index) => {
-//     let rowEl = $("<tr>");
-//     let nameEl = $("<td>").text(playerScore.initials);
-//     let scoreEl = $("<td>").text(playerScore.score);
-//     rowEl.append(rowEl, nameEl, scoreEl);
-//     highscoreTable.append(rowEl);
-//   });
-// }
+function init() {
+  scoreList.forEach((playerScore, index) => {
+    let rowEl = $("<tr>");
+    let nameEl = $("<td>").text(playerScore.initials);
+    let scoreEl = $("<td>").text(playerScore.score);
+    rowEl.append(rowEl, nameEl, scoreEl);
+    highscoreTable.append(rowEl);
+  });
+  console.log(scoreList);
+}
 
 function startQuiz() {
   alert("I started the game");
@@ -99,7 +101,7 @@ function updateScoreList(event) {
 
 // Function Calls
 
-// init();
+init();
 
 startQuizBtn.addEventListener("click", startQuiz);
 
