@@ -8,11 +8,14 @@ let score = JSON.parse(localStorage.getItem("score")) || [];
 let scoreList = JSON.parse(localStorage.getItem("scoreList")) || [];
 let addScoreBtn = document.querySelector("#addScore");
 let highscoreDiv = document.querySelector("#highscoreTable");
+var initialsEl = document.getElementById("initials");
 
 let questions = [
-  { title: "This is the first question?", choices: ["one", "two", "three", "four"], answer: "two" },
-  { title: "This is the second question?", choices: ["uno", "dos", "tres", "quatro"], answer: "tres" },
-  { title: "This is the third question?", choices: ["uno", "dos", "tres", "quatro"], answer: "tres" },
+  { title: "Which planet was the first to meet the death star's demise?", choices: ["Tatooine", "Alderaan", "Mustafar", "Kashyyyk"], answer: "Alderaan" },
+  { title: "Which was the name given to Count Dooku when he bacame a sith lord?", choices: ["Darth Maul", "Darth Bane", "Darth Tyranus", "Darth Malgus"], answer: "Darth Tyranus" },
+  { title: "Which planet DID NOT have a Jedi temple?", choices: ["Ilum", "Coruscant", "Hoth", "Dantooine"], answer: "Hoth" },
+  { title: "'I got a bad feeling about this.' Which character never said this line?", choices: ["Jar Jar Binks", "Lando Calrissian", "Han solo", "Princess Leia"], answer: "Jar Jar Binks" },
+  { title: "Which Jedi master secretly commissioned the creation of the clone army?", choices: ["Count Dooku", "Plo Koon", "Kit Fisto", "Sifo-Dyas"], answer: "Sifo-Dyas" },
   { title: "GAME OVER", choices: [], answer: "" },
 ];
 
@@ -22,14 +25,17 @@ let secondsLeft = 60;
 let questionsIndex = 1;
 // Functions
 function init() {
-  scoreList.forEach((playerScore, index) => {
-    let rowEl = $("<tr>");
-    let nameEl = $("<td>").text(playerScore.initials);
-    let scoreEl = $("<td>").text(playerScore.score);
-    rowEl.append(rowEl, nameEl, scoreEl);
-    highscoreTable.append(rowEl);
-  });
   console.log(scoreList);
+  scoreList.sort(function (a, b) {
+    return b.score - a.score;
+  });
+  for (var i = 0; i < scoreList.length; i += 1) {
+    let liTag = document.createElement("li");
+    liTag.textContent = scoreList[i].initials + " - " + scoreList[i].score;
+
+    highscoreTable.appendChild(liTag);
+    // highscoreTable.removeAttribute("class");
+  }
 }
 
 function startQuiz() {
@@ -62,21 +68,25 @@ function createButtons(index) {
   // cycle through questions
   // add four answer options
   let btnOne = document.createElement("button");
+  btnOne.className = "btn btn-info m-1";
   btnOne.textContent = questions[index].choices[0];
   btnOne.dataset.answer = questions[index].answer;
   questionDiv.appendChild(btnOne);
 
   let btnTwo = document.createElement("button");
+  btnTwo.className = "btn btn-info m-1";
   btnTwo.textContent = questions[index].choices[1];
   btnTwo.dataset.answer = questions[index].answer;
   questionDiv.appendChild(btnTwo);
 
   let btnThree = document.createElement("button");
+  btnThree.className = "btn btn-info m-1";
   btnThree.textContent = questions[index].choices[2];
   btnThree.dataset.answer = questions[index].answer;
   questionDiv.appendChild(btnThree);
 
   let btnFour = document.createElement("button");
+  btnFour.className = "btn btn-info m-1";
   btnFour.textContent = questions[index].choices[3];
   btnFour.dataset.answer = questions[index].answer;
   questionDiv.appendChild(btnFour);
@@ -89,14 +99,21 @@ function endGame() {
   formDiv.removeClass("hidden");
   scoreDiv.textContent = "Score:" + score;
 }
-function updateScoreList(event) {
+function updateScoreList() {
+  // e.preventdefault();
+  var initials = initialsEl.value.trim();
   console.log("something happened");
   let playerScore = {
-    initials: $("#initials").val(),
+    initials: initials,
     score: secondsLeft,
   };
+  // var playerScore = updateScoreList();
   scoreList.push(playerScore);
   localStorage.setItem("scoreList", JSON.stringify(scoreList));
+  // var olEl = document.querySelector(".hidden");
+  console.log("about to init");
+
+  console.log("init complete");
 }
 
 // Function Calls
